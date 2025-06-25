@@ -5,7 +5,7 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD
-    command: ["mariadbd", "--character-set-server=utf8mb4"]
+    command: [ "mariadbd", "--character-set-server=utf8mb4" ]
     restart: always
     healthcheck:
       test:
@@ -29,15 +29,15 @@ services:
       - openemr_logs:/var/log
       - openemr_sites:/var/www/localhost/htdocs/openemr/sites
     environment:
-      - MYSQL_ROOT_PASS="${MYSQL_ROOT_PASSWORD}"
+      - MYSQL_ROOT_PASS=${MYSQL_ROOT_PASSWORD}
       - MYSQL_HOST
       - MYSQL_USER
       - MYSQL_PASS
       - OE_USER
       - OE_PASS
     ports:
-      - "8080:80"
-      - "8443:443"
+      - '8080:80'
+      - '8443:443'
     restart: always
     healthcheck:
       test:
