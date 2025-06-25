@@ -1,6 +1,6 @@
 # OpenEMR
 
-This repository is a guide for setting up [OpenEMR](https://www.open-emr.org/) using Docker.
+A simple guide for setting up [OpenEMR](https://www.open-emr.org/) using Docker for local use.
 
 ## Prerequisites
 
