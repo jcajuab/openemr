@@ -9,37 +9,25 @@ A simple guide for setting up [OpenEMR](https://www.open-emr.org/) using Docker 
 
 ## Getting Started
 
-### Install Prerequisites
+### Environment Setup
 
-Ensure you have Docker and Docker Compose installed on your system.
-
-### Copy Environment File
-
-Make sure to copy the `.env.example` file to `.env` before proceeding:
-
-```sh
-cp .env.example .env
-```
+Make sure to copy the `.env.example` file to `.env` before proceeding, and then update the values accordingly.
 
 ### Start the Application
-
-Run the following command to start the application in detached mode:
 
 ```sh
 docker compose up -d
 ```
 
-This will initiate a quick setup process, which typically takes around 5–10 minutes.
+> At first launch, this will initiate a quick setup process, which typically takes around 5–10 minutes.
 
 ### (Optional) Monitor Setup Progress
 
 To check if the setup is still running or has completed, use the following command:
 
 ```sh
-docker compose logs --follow
+docker compose logs --follow # Press Ctrl-C to exit
 ```
-
-Press `Ctrl-C` to exit the log view.
 
 To confirm that the quick setup has finished, look for the following lines in the logs:
 
@@ -62,8 +50,6 @@ Starting apache!
 
 ## Access the Application
 
-Once the quick setup is complete, you can access the web application by visiting:
+Once the quick setup is complete, you can access the web application by visiting [https://localhost:8443](https://localhost:8443)
 
-```
-https://localhost:8443
-```
+> If you get an error, don’t worry. Since this is for local use, you can safely skip it.
