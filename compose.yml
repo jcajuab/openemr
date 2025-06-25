@@ -1,0 +1,61 @@
+services:
+  mysql:
+    image: mariadb:11.4
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD
+    command: ["mariadbd", "--character-set-server=utf8mb4"]
+    restart: always
+    healthcheck:
+      test:
+        - CMD
+        - /usr/local/bin/healthcheck.sh
+        - --su-mysql
+        - --connect
+        - --innodb_initialized
+      start_period: 1m
+      start_interval: 10s
+      interval: 1m
+      timeout: 5s
+      retries: 3
+
+  openemr:
+    image: openemr/openemr:7.0.3
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - openemr_logs:/var/log
+      - openemr_sites:/var/www/localhost/htdocs/openemr/sites
+    environment:
+      - MYSQL_ROOT_PASS="${MYSQL_ROOT_PASSWORD}"
+      - MYSQL_HOST
+      - MYSQL_USER
+      - MYSQL_PASS
+      - OE_USER
+      - OE_PASS
+    ports:
+      - "8080:80"
+      - "8443:443"
+    restart: always
+    healthcheck:
+      test:
+        - CMD
+        - /usr/bin/curl
+        - --fail
+        - --insecure
+        - --location
+        - --show-error
+        - --silent
+        - https://localhost/
+      start_period: 3m
+      start_interval: 10s
+      interval: 1m
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mysql_data: {}
+  openemr_logs: {}
+  openemr_sites: {}
